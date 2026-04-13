@@ -45,14 +45,14 @@ def train(task="classification", epochs=10, batch_size=8, lr=1e-4, freeze_encode
             classifier.load_state_dict(classifier_weights)
             model.encoder.load_state_dict(classifier.encoder.state_dict())
 
-        #RESUME LOCALIZATION TRAINING
+        # Resuming localization training if checkpoint exists
         if os.path.exists("localizer.pth"):
             print("Resuming localization from checkpoint...")
             ckpt = torch.load("localizer.pth", map_location="cpu", weights_only = False)
             loc_weights = ckpt["state_dict"] if "state_dict" in ckpt else ckpt
             model.load_state_dict(loc_weights)
 
-        # Freeze encoder if needed
+        # Freezing encoder if needed
         if freeze_encoder:
             print("Freezing encoder...")
             for param in model.encoder.parameters():

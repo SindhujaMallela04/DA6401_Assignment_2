@@ -78,22 +78,16 @@ def evaluate():
 
             outputs = model(images)
 
-            # -------------------------
-            # Classification
-            # -------------------------
+            #Classification
             preds = outputs["classification"].argmax(dim=1)
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
-
-            # -------------------------
-            # Localization
-            # -------------------------
+            
+            # Localization            
             iou = compute_iou(outputs["localization"], bboxes)
             all_ious.extend(iou.cpu().numpy())
-
-            # -------------------------
-            # Segmentation
-            # -------------------------
+            
+            # Segmentation            
             dice = dice_score_multiclass(outputs["segmentation"], masks)
             all_dice.append(dice.item())
 
@@ -102,9 +96,9 @@ def evaluate():
     mean_iou = sum(all_ious) / len(all_ious)
     mean_dice = sum(all_dice) / len(all_dice)
 
-    print("\n===== FINAL METRICS =====")
+    print("\nFINAL METRICS")
     print(f"Macro F1 Score: {f1:.4f}")
-    print(f"Mean IoU (proxy mAP): {mean_iou:.4f}")
+    print(f"MaP: {mean_iou:.4f}")
     print(f"Dice Score: {mean_dice:.4f}")
 
 

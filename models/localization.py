@@ -22,8 +22,7 @@ class VGG11Localizer(nn.Module):
             CustomDropout(p=0.5),
             nn.Linear(1024, 512),
             nn.ReLU(inplace=True),
-            nn.Linear(512, 4),  # Output: (x_center, y_center, width, height)
-            # nn.Sigmoid()  # Ensuring outputs are in [0, 1] range
+            nn.Linear(512, 4),              
         )        
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
