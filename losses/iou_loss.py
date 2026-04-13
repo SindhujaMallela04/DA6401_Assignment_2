@@ -45,7 +45,7 @@ class IoULoss(nn.Module):
         intersection = inter_w * inter_h
 
         #Areas
-        pred_area = (pred_xmax - pred_xmin) * (pred_ymax - pred_ymin)
+        pred_area = torch.clamp(pred_xmax - pred_xmin, min = 0) * torch.clamp(pred_ymax - pred_ymin, min = 0)
         target_area = (target_xmax - target_xmin) * (target_ymax - target_ymin)
 
         #Union

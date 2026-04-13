@@ -121,12 +121,12 @@ def train(task="classification", epochs=10, batch_size=8, lr=1e-4, freeze_encode
             elif task == "localization":
                 outputs = model(images)
 
-                # outputs_norm = outputs / IMAGE_SIZE
-                # bboxes_norm = bboxes / IMAGE_SIZE
+                outputs_norm = outputs / IMAGE_SIZE
+                bboxes_norm = bboxes / IMAGE_SIZE
                 
-                mse_loss = loss_fn_mse(outputs, bboxes)
+                mse_loss = loss_fn_mse(outputs_norm, bboxes_norm)
                 iou_loss = loss_fn_iou(outputs, bboxes)
-                loss = 0.5 * mse_loss / (224.0 ** 2) + iou_loss
+                loss = mse_loss + iou_loss
 
             elif task == "segmentation":
                 outputs = model(images)   # [B, 3, H, W]
