@@ -58,7 +58,7 @@ class OxfordIIITPetDataset(Dataset):
 
     
     def get_bbox(self, mask):
-        pos = torch.where(mask == 0)
+        pos = torch.where(mask == 1)
         if len(pos[0])  == 0:
             return torch.tensor([0, 0, 0, 0], dtype = torch.float32)
         
@@ -89,7 +89,9 @@ class OxfordIIITPetDataset(Dataset):
 
         #Converting mask
         mask = torch.from_numpy(np.array(mask)).long()
-        mask = mask - 1
+        # mask = mask - 1
+        mask = (mask == 1) | (mask == 2)
+        mask = mask.long()
         
         # bbox = self.get_bbox_from_xml(idx)
         # if bbox is None :        
