@@ -37,7 +37,7 @@ class MultiTaskPerceptionModel(nn.Module):
 
 
         #Shared Encoder
-        self.encoder = self.localizer_model.encoder
+        self.encoder = self.classifier_model.encoder
 
         #Using trained heads
         self.classifier = self.classifier_model.classifier
