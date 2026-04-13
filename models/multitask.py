@@ -72,7 +72,7 @@ class MultiTaskPerceptionModel(nn.Module):
         class_out = self.classifier(bottleneck)
 
         #Localization
-        localization_out = self.localizer(bottleneck)
+        localization_out = self.localizer(bottleneck) * 224.0
         # bbox = self.localizer(bottleneck)
 
         enc_f1 = features["block1"]   # 224×224
