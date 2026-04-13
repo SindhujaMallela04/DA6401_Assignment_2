@@ -15,7 +15,7 @@ class MultiTaskPerceptionModel(nn.Module):
         super().__init__()
 
         gdown.download(id="1bRel3MX-GAFydQO8lFCuAp5YeziI8nx6", output=classifier_path, quiet=False)
-        gdown.download(id="1nedveiXu8LqMc7_F-bg7_qfUw-Krkx73", output=localizer_path, quiet=False)
+        gdown.download(id="1kST1IfM7n7Ku0dmI_6kBuiMnQZS69KQc", output=localizer_path, quiet=False)
         gdown.download(id="1wo4W1KtkgvW-SVEgyuPSRvWjUxqEd6Xv", output=unet_path, quiet=False)
 
         #Loading models
@@ -72,7 +72,7 @@ class MultiTaskPerceptionModel(nn.Module):
         class_out = self.classifier(bottleneck)
 
         #Localization
-        localization_out = self.localizer(bottleneck) * 224.0
+        localization_out = self.localizer(bottleneck)
         # bbox = self.localizer(bottleneck)
 
         enc_f1 = features["block1"]   # 224×224
